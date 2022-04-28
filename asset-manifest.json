@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/DoAnHDT_WebDocTruyenChu/static/css/main.fcd41ccd.css",
+    "main.js": "/DoAnHDT_WebDocTruyenChu/static/js/main.b3f1e782.js",
+    "static/media/logo.png": "/DoAnHDT_WebDocTruyenChu/static/media/logo.41dc980b52dd84191800.png",
+    "static/media/avt.png": "/DoAnHDT_WebDocTruyenChu/static/media/avt.e6a4f4fd837bf1c5555b.png",
+    "index.html": "/DoAnHDT_WebDocTruyenChu/index.html",
+    "main.fcd41ccd.css.map": "/DoAnHDT_WebDocTruyenChu/static/css/main.fcd41ccd.css.map",
+    "main.b3f1e782.js.map": "/DoAnHDT_WebDocTruyenChu/static/js/main.b3f1e782.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fcd41ccd.css",
+    "static/js/main.b3f1e782.js"
+  ]
+}
