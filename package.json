@@ -1,7 +1,7 @@
 {
     "name": "code",
-    "version": "1.1.0",
-    "homepage": "https://tranduy26913.github.io/DoAnHDT_WebDocTruyenChu/",
+    "version": "1.1.1",
+    "homepage": "https://tranduy26913.github.io/FEThichTruyenChu/",
     "private": true,
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^33.0.0",
