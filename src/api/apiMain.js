@@ -96,7 +96,7 @@ const apiMain = {
         return getData(await axiosClient.get(url, {params} ));
     },
     getSaveds: async (user, dispatch, stateSuccess) => {
-        const url = `/saved`
+        const url = `/saved/savedbyuser`
         let axi = axiosInstance(user, dispatch, stateSuccess)
         return getData(await axi.get(url, { headers: { Authorization: `Bearer ${user.accessToken}` } }));
     },
