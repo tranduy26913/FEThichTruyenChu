@@ -111,9 +111,9 @@ const apiMain = {
         return getData(await axi.put(url, params));
     },
     deleteStory: async (params, user, dispatch, stateSuccess) => {
-        const url = `/novels/novel`
+        const url = `/novels/${params.url}`
         let axi = axiosInstance(user, dispatch, stateSuccess)
-        return getData(await axi.delete(url, {params}));
+        return getData(await axi.delete(url));
     },
     getChapterNewUpdate: async (param) => {
         return getData(await axiosClient.get(`/novels/novel/newupdate`,{param}));
