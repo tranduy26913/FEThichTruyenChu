@@ -37,7 +37,7 @@ const StoryCreated = ({ userInfo }) => {
     }
     const onClickDeleteStory = (e) => {
       if(e.target.getAttribute('data-url')) {
-        apiMain.deleteNovel({url: e.target.getAttribute('data-url') }, user, dispatch, loginSuccess)
+        apiMain.deleteStory({url: e.target.getAttribute('data-url') }, user, dispatch, loginSuccess)
           .then(res => {
             getStories()
             toast.success(res.message)
@@ -75,8 +75,8 @@ const StoryCreated = ({ userInfo }) => {
                     {data.tentruyen}
                   </h4>
                   <div className="d-flex" style={{'gap':'15px'}}>
-                    <span className="text-with-icon" onClick={onClickUpdateStory} data-url={data.url}><i className='bx bx-edit' ></i> Sửa</span>
-                    <span className="text-with-icon" onClick={onClickDeleteStory} data-url={data.url}><i className='bx bx-trash' ></i> Xoá</span>
+                    <span className="text-with-icon" onClick={onClickUpdateStory} data-url={data.url}><i className='bx bx-edit' data-url={data.url}></i> Sửa</span>
+                    <span className="text-with-icon" onClick={onClickDeleteStory} data-url={data.url}><i className='bx bx-trash' data-url={data.url} ></i> Xoá</span>
   
                   </div>
                 </div>

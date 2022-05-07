@@ -16,8 +16,9 @@ const ListChap = ({ url, user, dispatch,onClickBackFromListChap }) => {
       setAddChap(true)
     }
     const onClickDeleteChap = (e) => {
-      if (e.target.name) {
-        apiMain.deleteChapter({ url, chapnumber: e.target.name }, user, dispatch, loginSuccess)
+      const chapnumber = Number(e.target.getAttribute("data-number"))
+      if (chapnumber) {
+        apiMain.deleteChapter({ url, chapnumber }, user, dispatch, loginSuccess)
           .then(res => {
             getChapter()
             toast.success(res.message)
@@ -68,8 +69,8 @@ const ListChap = ({ url, user, dispatch,onClickBackFromListChap }) => {
                         <h4 key={item.chapnumber} name={item.chapnumber} className='text-overflow-1-lines'>{item.tenchap}</h4>
                       </div>
                       <div className="col-2">
-                        <span className="text-with-icon" onClick={onClickUpdateChap} name={item.chapnumber}><i className='bx bx-edit' ></i> Sửa</span>
-                        <span className="text-with-icon" onClick={onClickDeleteChap} name={item.chapnumber}><i className='bx bx-trash' ></i> Xoá</span>
+                        <span className="text-with-icon" onClick={onClickUpdateChap} data-number={item.chapnumber}><i className='bx bx-edit' data-number={item.chapnumber}></i> Sửa</span>
+                        <span className="text-with-icon" onClick={onClickDeleteChap} data-number={item.chapnumber}><i className='bx bx-trash' data-number={item.chapnumber}></i> Xoá</span>
                       </div>
                     </div><hr/></div>
                     )

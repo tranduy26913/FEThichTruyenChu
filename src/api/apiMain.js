@@ -84,7 +84,7 @@ const apiMain = {
     deleteChapter: async (params, user, dispatch, stateSuccess) => {
         const url = `/novels/novel/chuong`
         let axi = axiosInstance(user, dispatch, stateSuccess)
-        return getData(await axi.delete(url, { params }));
+        return getData(await axi.delete(url, {data:params} ));
     },
     getReadings: async (user, dispatch, stateSuccess) => {
         const url = `/novels/readings`

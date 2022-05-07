@@ -5,11 +5,13 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { toast } from 'react-toastify'
 import getData from '../../../../api/getData'
+import Loading from '../../../../components/Loading/Loading';
 
 const AddChapter = ({ url, chapnumber, user, dispatch, onClickBackFromAddChap, getChapters }) => {
   const [content, setContent] = useState("")
   const [tenchuong, setTenchuong] = useState("")
   const [edit, setEdit] = useState(false)
+  const [loading, setLoading] = useState(false)
   const onChangeTenchuong = (e) => {
     setTenchuong(e.target.value)
   }
@@ -29,31 +31,39 @@ const AddChapter = ({ url, chapnumber, user, dispatch, onClickBackFromAddChap, g
   }, [url, chapnumber])
 
   const onClickAddChapter = async (e) => {
+    if(loading)
+      return
     const params = { content, tenchap: tenchuong, url }
     if (content.length <= 10) {
       toast.warning("Nội dung chương phải dài hơn 10 kí tự");
       return
     }
+    setLoading(true)
     apiMain.createChapter(params, user, dispatch, loginSuccess)
       .then(res => {
         getChapters()
         toast.success("Thêm chương thành công")
       })
       .catch(err => { toast.error(getData(err.response)?.details.message) })
+      .finally(()=>{setLoading(false)})
   }
 
   const onClickEditChapter = async (e) => {
+    if(loading)
+      return
     const params = { content, tenchap: tenchuong, url, chapnumber }
     if (content.length <= 10) {
       toast.warning("Nội dung chương phải dài hơn 10 kí tự");
       return
     }
+    setLoading(true)
     apiMain.updateChapter(params, user, dispatch, loginSuccess)
       .then(res => {
         getChapters()
         toast.success("Sửa truyện thành công")
       })
       .catch(err => { toast.error(getData(err.response)?.details.message) })
+      .finally(()=>{setLoading(false)})
   }
   const labelStyle = { 'minWidth': '100px', 'margin': '5px 0px', 'display': 'inline-block' }
   return (<>
@@ -85,7 +95,7 @@ const AddChapter = ({ url, chapnumber, user, dispatch, onClickBackFromAddChap, g
     <div className='d-flex'>
       {
         edit ? <button className='btn-primary' onClick={onClickEditChapter} style={{ 'margin': '20px auto' }}>Cập nhật chương</button>
-          : <button className='btn-primary' onClick={onClickAddChapter} style={{ 'margin': '20px auto' }}>Thêm chương</button>}
+          : <button className='btn-primary' onClick={onClickAddChapter} style={{ 'margin': '20px auto' }}>{loading?<Loading/>:""}Thêm chương</button>}
 
     </div>
   </>)
