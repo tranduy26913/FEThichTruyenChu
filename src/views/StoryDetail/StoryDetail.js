@@ -75,7 +75,7 @@ function StoryDetail() {
         setMain(<Rate key={'rate'} />)
         break
       case 'chapter':
-        setMain(<ListChapter key={'chapter'} url={truyen.url} totalPage={truyen.sochap} />)
+        setMain(<ListChapter key={'chapter'} url={truyen.url} totalChap={truyen.sochap} />)
         break
       case 'comment':
         setMain(<Comment key={'comment'} url={truyen.url} />)
@@ -303,7 +303,10 @@ export const ListChapter = props => {
             
           </Grid>
       }
-      <Pagination totalPage={props.totalPage/size} currentPage={currentPage} handleSetPage={setCurrentPage} />
+      {
+        props.totalChap>0?      <Pagination totalPage={parseInt(props.totalChap/size)} currentPage={currentPage} handleSetPage={setCurrentPage} />
+:''
+      }
 
     </>
   )

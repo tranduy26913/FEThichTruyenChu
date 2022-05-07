@@ -12,7 +12,8 @@ const ListChap = ({ url, user, dispatch,onClickBackFromListChap }) => {
     
     
     const onClickUpdateChap = (e) => {
-      setChapnumber(e.target.name)
+      const chapnumber = Number(e.target.getAttribute("data-number"))
+      setChapnumber(chapnumber)
       setAddChap(true)
     }
     const onClickDeleteChap = (e) => {

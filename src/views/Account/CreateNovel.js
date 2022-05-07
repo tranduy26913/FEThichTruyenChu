@@ -57,6 +57,10 @@ function CreateNovel({userInfo}) {
         e.preventDefault()
         if (image == null)
             return;
+        if(tacgia ===""){
+            toast.warning("Phải nhập tên tác giả")
+            return
+        }
         dispatch(setLoading(true))
         const url = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(' ').filter(i=>i!=='').join('-').toLowerCase()
         const storageRef = ref(storage, `/images/truyen/${url}`);
