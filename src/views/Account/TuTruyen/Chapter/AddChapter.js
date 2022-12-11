@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import apiMain from '../../../../api/apiMain'
-import { loginSuccess } from '../../../../redux/authSlice'
+import apiMain from 'api/apiMain'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { toast } from 'react-toastify'
-import getData from '../../../../api/getData'
-import Loading from '../../../../components/Loading/Loading';
+import getData from 'api/getData'
 
-const AddChapter = ({ url, chapnumber, user, dispatch, onClickBackFromAddChap, getChapters }) => {
+const AddChapter = ({ url, chapnumber, onClickBackFromAddChap, getChapters }) => {
   const [content, setContent] = useState("")
   const [tenchuong, setTenchuong] = useState("")
   const [edit, setEdit] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [isLock, setIsLock] = useState(false)
+
   const onChangeTenchuong = (e) => {
     setTenchuong(e.target.value)
   }
@@ -22,8 +21,9 @@ const AddChapter = ({ url, chapnumber, user, dispatch, onClickBackFromAddChap, g
         apiMain.getChapterByNumber(url, chapnumber)
           .then(res => {
             setContent(res.content)
-            setTenchuong(res.tenchap)
+            setTenchuong(res.chaptername)
             setEdit(true)
+            setIsLock(res.isLock)
           })
       }
     }
@@ -31,48 +31,44 @@ const AddChapter = ({ url, chapnumber, user, dispatch, onClickBackFromAddChap, g
   }, [url, chapnumber])
 
   const onClickAddChapter = async (e) => {
-    if(loading)
-      return
-    const params = { content, tenchap: tenchuong, url }
+    const params = { content, tenchap: tenchuong, url,isLock }
     if (content.length <= 10) {
       toast.warning("Nội dung chương phải dài hơn 10 kí tự");
       return
     }
-    setLoading(true)
-    apiMain.createChapter(params, user, dispatch, loginSuccess)
+    apiMain.createChapter(params)
       .then(res => {
         getChapters()
         toast.success("Thêm chương thành công")
       })
       .catch(err => { toast.error(getData(err.response)?.details.message) })
-      .finally(()=>{setLoading(false)})
   }
 
   const onClickEditChapter = async (e) => {
-    if(loading)
-      return
-    const params = { content, tenchap: tenchuong, url, chapnumber }
+    const params = { content, tenchap: tenchuong, url, chapnumber ,isLock}
     if (content.length <= 10) {
       toast.warning("Nội dung chương phải dài hơn 10 kí tự");
       return
     }
-    setLoading(true)
-    apiMain.updateChapter(params, user, dispatch, loginSuccess)
+    apiMain.updateChapter(params)
       .then(res => {
         getChapters()
         toast.success("Sửa truyện thành công")
       })
       .catch(err => { toast.error(getData(err.response)?.details.message) })
-      .finally(()=>{setLoading(false)})
   }
   const labelStyle = { 'minWidth': '100px', 'margin': '5px 0px', 'display': 'inline-block' }
   return (<>
     <div>
-      <span className='text-with-icon' onClick={onClickBackFromAddChap}><i className="fa-solid fa-angle-left"></i> Danh sách chương</span>
+      <span className='text-with-icon' onClick={onClickBackFromAddChap}><i className='bx bx-left-arrow'></i> Danh sách chương</span>
     </div>
     <div className="group-info" style={{ 'marginBottom': '10px' }}>
       <label htmlFor="" className='fs-16' style={labelStyle}>Tên chương</label>
       <input onChange={onChangeTenchuong} value={tenchuong || ""} />
+    </div>
+    <div  className='d-flex' style={{ 'marginBottom': '10px', gap:'6px'}}>
+      <input  name='isLock' type='checkbox' checked={isLock} onChange={()=>setIsLock(pre=>!pre)} value={isLock} />
+      <label htmlFor="isLock" className='fs-16' style={labelStyle}>Khoá chương (Tính phí 200coin)</label>
     </div>
     <label htmlFor="" className='fs-16' style={labelStyle}>Nội dung chương</label>
     <CKEditor
@@ -92,10 +88,12 @@ const AddChapter = ({ url, chapnumber, user, dispatch, onClickBackFromAddChap, g
         console.log('Focus.', editor);
       }}
     />
+   
+
     <div className='d-flex'>
       {
         edit ? <button className='btn-primary' onClick={onClickEditChapter} style={{ 'margin': '20px auto' }}>Cập nhật chương</button>
-          : <button className='btn-primary' onClick={onClickAddChapter} style={{ 'margin': '20px auto' }}>{loading?<Loading/>:""}Thêm chương</button>}
+          : <button className='btn-primary' onClick={onClickAddChapter} style={{ 'margin': '20px auto' }}>Thêm chương</button>}
 
     </div>
   </>)

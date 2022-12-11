@@ -1,25 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import apiMain from '../../../../api/apiMain'
-import { loginSuccess } from '../../../../redux/authSlice'
-import Grid from '../../../../components/Grid/Grid'
+import apiMain from 'api/apiMain'
+import Grid from 'components/Grid/Grid'
 import { toast } from 'react-toastify'
 import AddChapter from './AddChapter'
 
-const ListChap = ({ url, user, dispatch,onClickBackFromListChap }) => {
+const ListChap = ({ url,onClickBackFromListChap }) => {
     const [chapters, setChapters] = useState([])
     const [addChap, setAddChap] = useState(false)
-    const [chapnumber, setChapnumber] = useState(null)
+    const [chapternumber, setChapternumber] = useState(null)
     
-    
-    const onClickUpdateChap = (e) => {
-      const chapnumber = Number(e.target.getAttribute("data-number"))
-      setChapnumber(chapnumber)
+    const onClickUpdateChap = (value) => {
+      setChapternumber(value)
       setAddChap(true)
     }
-    const onClickDeleteChap = (e) => {
-      const chapnumber = Number(e.target.getAttribute("data-number"))
-      if (chapnumber) {
-        apiMain.deleteChapter({ url, chapnumber }, user, dispatch, loginSuccess)
+    const onClickDeleteChap = (value) => {
+      if (value) {
+        apiMain.deleteChapter({ url, chapnumber: value })
           .then(res => {
             getChapter()
             toast.success(res.message)
@@ -41,16 +37,17 @@ const ListChap = ({ url, user, dispatch,onClickBackFromListChap }) => {
     
     useEffect(()=>{
       getChapter()
+       // eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [])
   
     const onClickAddChapter = (e) => {
       e.preventDefault()
       setAddChap(true)
-      setChapnumber(null)
+      setChapternumber(null)
     }
     return (
       <>{
-        addChap ? <AddChapter url={url} chapnumber={chapnumber} user={user} dispatch={dispatch}
+        addChap ? <AddChapter url={url} chapnumber={chapternumber} 
          onClickBackFromAddChap={()=>{setAddChap(false)}}
          getChapters={getChapter} /> :
   
@@ -64,14 +61,14 @@ const ListChap = ({ url, user, dispatch,onClickBackFromListChap }) => {
               {
                 chapters.map((item, index) => {
                   return (
-                    <div key={item.chapnumber}>
+                    <div key={item.chapternumber}>
                     <div className='d-flex'>
                       <div className="col-10 d-flex" style={{'alignItems':'center'}}>
-                        <h4 key={item.chapnumber} name={item.chapnumber} className='text-overflow-1-lines'>{item.tenchap}</h4>
+                        <h4 key={item.chapternumber} name={item.chapternumber} className='text-overflow-1-lines'>{item.chaptername}</h4>
                       </div>
                       <div className="col-2">
-                        <span className="text-with-icon" onClick={onClickUpdateChap} data-number={item.chapnumber}><i className='bx bx-edit' data-number={item.chapnumber}></i> Sửa</span>
-                        <span className="text-with-icon" onClick={onClickDeleteChap} data-number={item.chapnumber}><i className='bx bx-trash' data-number={item.chapnumber}></i> Xoá</span>
+                        <span className="text-with-icon" onClick={()=>onClickUpdateChap(item.chapternumber)}><i className='bx bx-edit' ></i> Sửa</span>
+                        <span className="text-with-icon" onClick={()=>onClickDeleteChap(item.chapternumber)} ><i className='bx bx-trash' ></i> Xoá</span>
                       </div>
                     </div><hr/></div>
                     )

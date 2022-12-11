@@ -1,41 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 export const authSlice = createSlice({
     name: "auth",
     initialState: {
-        login: {
-            user: null,
-            isFetching: false,
-            error: false
-        }
+        refreshToken: '',
+        accessToken:''
     },
     reducers: {
-        loginStart: (state) => {
-            state.login.isFetching = true
-        },
+       
         loginSuccess: (state, action) => {
-            state.login.isFetching = false
-            state.login.user = action.payload
+            state.refreshToken = action.payload.refreshToken
+            state.accessToken = action.payload.accessToken
             
-        },
-        loginFalse: (state) => {
-            state.login.error = true
         },
         logoutSuccess:(state)=>{
-            state.login.user =null
+            state.refreshToken = ''
+            state.accessToken = ''
         },
-        registerSuccess:(state)=>{
-            
-        }
 
     }
 })
 
 export const {
-    loginFalse,
-    loginStart,
     loginSuccess,
-    logoutSuccess
+    logoutSuccess,
 }=authSlice.actions
 
 export default authSlice.reducer

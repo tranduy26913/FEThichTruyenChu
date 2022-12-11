@@ -1,4 +1,4 @@
-@use '../scss/abstract' as *;
+@use "../scss/abstract" as *;
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,500,600,700,800&subset=latin-ext,vietnamese&display=swap");
 * {
     padding: 0;
@@ -23,7 +23,6 @@ body {
     margin: 0;
     font-size: 0.9375rem;
     font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
-    ;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-weight: 400;
@@ -31,7 +30,7 @@ body {
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 body {
