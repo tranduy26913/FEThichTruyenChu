@@ -38,3 +38,13 @@
         }
     }
 }
+
+.story-img {
+    display: flex;
+    flex-direction: column;
+    & img {
+        width: 60%;
+        max-width: 240px;
+        margin: 20px auto;
+    }
+}
