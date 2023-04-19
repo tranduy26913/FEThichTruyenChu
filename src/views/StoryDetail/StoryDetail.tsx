@@ -360,7 +360,7 @@ export const ListChapter: React.FC<ListChapterProps> = (props) => {
         </Modal>}
 
 
-      <Pagination totalPage={props.totalPage / size} currentPage={currentPage} handleSetPage={setCurrentPage} />
+      <Pagination totalPage={Math.ceil(props.totalPage / size)} currentPage={currentPage} handleSetPage={setCurrentPage} />
 
     </>
   )

@@ -89,7 +89,7 @@ function ChapterView() {
                         url,
                         image: truyen.image,
                         chapternumber: Number(chapnum),
-                        sochap: truyen.sochap
+                        sochap: truyen.numberofchapter
                     }
                     if (index !== -1) {
                         readings[index] = newReading

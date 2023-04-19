@@ -3,8 +3,6 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./views/Home/Home";
 import Account from "./views/Account/Account";
-
-// import PrivateRoute from "./views/PrivateRoute";
 import StoryDetail from "./views/StoryDetail/StoryDetail";
 import Active from "./views/Active/Active";
 import ChapterView from "./views/ChapterView/ChapterView";
@@ -15,11 +13,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./scss/App.scss";
 import Payment from "views/Payment/Payment";
-//import ResultPayment from "views/ResultPayment/ResultPayment";
+import ResultPayment from "views/ResultPayment/ResultPayment";
 import { axiosInstance } from './api/axiosClient'
 import CheckAuthentication from "components/CheckAuthentication/CheckAuthentication";
 import ScrollToTop from "components/ScrollToTop";
-import { useEffect } from "react";
 import { authStore } from "store/authStore";
 import Error404 from "views/ErrorPage/Error404";
 
@@ -33,7 +30,7 @@ function App() {
     axiosInstance({ accessToken, refreshToken }, loginSuccess, logoutSuccess);
   }
   // useEffect(()=>{
-  //   apiMain.updateTraffic()
+  //   updateTraffic()
   // },[])
   return (
     <BrowserRouter>
@@ -50,15 +47,11 @@ function App() {
             <Route path="/user/*" element={<Account />} />
             <Route path="tim-kiem" element={<Search />} />
             <Route path="/*" element={<Error404 />} />
-            {/* 
-        
-        
-        
-        
-        
+            <Route path="payment" element={<Payment />} />
+        <Route path="result-payment" element={<ResultPayment />} />
+            {/*         
         <Route path="tat-ca" element={<AllStory />} />
-        <Route path="payment" element={<Payment />} />
-        <Route path="result-payment" element={<ResultPayment />} /> */}
+         */}
           </Routes>
         </ScrollToTop>
       </CheckAuthentication>
