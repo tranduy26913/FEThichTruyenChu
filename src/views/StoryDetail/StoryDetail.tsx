@@ -280,7 +280,7 @@ export const ListChapter: React.FC<ListChapterProps> = (props) => {
   const user = userStore(state => state.user)
   const updateBalance = userStore(state => state.updateBalance)
 
-  const { isLoading, data: chapters ,refetch} = useQuery<Chapter[], Error>(['get-chapters', currentPage - 1],
+  const { isLoading, data: chapters ,refetch} = useQuery<Chapter[], Error>(['get-chapters', currentPage - 1,url],
     () => getNameChapters(url, {//payload
       page: currentPage - 1,
       size: 20
